@@ -61,6 +61,6 @@ App.get("/home", (req, res)=>{
     res.render("home")
 })
 
-App.listen("3000", function(){
+App.listen(process.env.PORT || "3000", function(){
     console.log("is connect");
 })
