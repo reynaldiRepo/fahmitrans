@@ -1,0 +1,27 @@
+{
+  "name": "fahmitrans",
+  "version": "1.0.0",
+  "description": "Aplikasi untuk record jalannya Truk",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reynaldiRepo/fahmitrans.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reynaldiRepo/fahmitrans/issues"
+  },
+  "homepage": "https://github.com/reynaldiRepo/fahmitrans#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "ejs": "^3.1.2",
+    "express": "^4.17.1",
+    "mongodb": "^3.5.6",
+    "mongoose": "^5.9.10"
+  }
+}
