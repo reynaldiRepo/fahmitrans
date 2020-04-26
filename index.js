@@ -218,9 +218,9 @@ App.get("/perjalanan/all", (req, res) => {
     console.log(new Date(req.query.year, req.query.month, out).toISOString());
     perjalanan_model.find({
         "tanggal": {
-            $gte: new Date(req.query.year, req.query.month, 0).toISOString(),
+            $gte: new Date(req.query.year, req.query.month-1, 0).toISOString(),
 
-            $lt: new Date(req.query.year, req.query.month, out).toISOString()
+            $lt: new Date(req.query.year, req.query.month-1, out).toISOString()
         }
     }).sort({
         "tanggal": -1

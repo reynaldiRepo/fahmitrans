@@ -237,7 +237,7 @@
 
                         <div class="row">
                             <div class="col-lg-6">
-                                
+
                                 <input type="text" name="_id" id="_id" hidden>
                                 <div class="form-group">
                                     <label>Tanggal</label>
@@ -249,28 +249,32 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Ekspedisi</label>
-                                    <select class="form-control" name="ekspedisi" id="expedisi-select2" id="ekspedisi" required>
+                                    <select class="form-control" name="ekspedisi" id="expedisi-select2" id="ekspedisi"
+                                        required>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Customer</label>
-                                    <select class="form-control" name="customer" id="customer-select2" required id="customer">
+                                    <select class="form-control" name="customer" id="customer-select2" required
+                                        id="customer">
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     <label>Muat</label>
-                                    <input type="text" class="form-control" name="muat" required id="muat" id="muat"> 
+                                    <input type="text" class="form-control" name="muat" required id="muat" id="muat">
                                 </div>
                                 <div class="form-group">
                                     <label>Tujuan</label>
-                                    <input type="text" class="form-control" name="tujuan" required id="tujuan" id="tujuan">
+                                    <input type="text" class="form-control" name="tujuan" required id="tujuan"
+                                        id="tujuan">
                                 </div>
 
                                 <div class="form-group">
                                     <label>Tonase</label>
-                                    <input type="number" class="form-control" name="tonase" value="0" id="tonase" id="tonase">
+                                    <input type="number" class="form-control" name="tonase" value="0" id="tonase"
+                                        id="tonase">
                                 </div>
                                 <div class="form-group">
                                     <label>fee</label>
@@ -355,7 +359,7 @@
                     $("#year").append("<option value='" + i + "'>" + i + "</option>")
                 }
                 $("#year").val(date.getFullYear());
-                $("#month").val(date.getMonth());
+                $("#month").val(date.getMonth() + 1);
                 load_ekspedisi();
                 load_customer();
 
@@ -363,6 +367,13 @@
                     "ordering": false
                 });
                 load_data(table);
+
+                $("#year, #month").change(
+                    function () {
+                        table.clear().draw()
+                        load_data(table);
+                    }
+                )
 
             }
         )
@@ -378,7 +389,8 @@
                             '</td><td><button class="btn btn-danger" data="' + element.name +
                             '"  onclick="delEks(' + "'" + element._id + "'" +
                             ')">Delete</button></td></tr>');
-                        $("#expedisi-select, #expedisi-select2").append("<option value='" + element.name + "'>" + element
+                        $("#expedisi-select, #expedisi-select2").append("<option value='" + element.name +
+                            "'>" + element
                             .name + "</option>")
                     });
                 }
@@ -402,7 +414,8 @@
                                     '</td><td><button class="btn btn-danger" data="' + data.data.name +
                                     '" onclick="delEks(' + "'" + data.data._id + "'" +
                                     ')">Delete</button></td></tr>');
-                                $("#expedisi-select, #expedisi-select2").append("<option value='" + data.data.name + "'>" + data
+                                $("#expedisi-select, #expedisi-select2").append("<option value='" + data.data
+                                    .name + "'>" + data
                                     .data.name + "</option>")
                                 swal({
                                     title: "Add Ekspedisi Success",
@@ -460,7 +473,8 @@
                             '</td><td><button class="btn btn-danger" data="' + element.name +
                             '"  onclick="delCus(' + "'" + element._id + "'" +
                             ')">Delete</button></td></tr>');
-                        $("#customer-select, #customer-select2").append("<option value='" + element.name + "'>" + element
+                        $("#customer-select, #customer-select2").append("<option value='" + element.name +
+                            "'>" + element
                             .name + "</option>")
                     });
                 }
@@ -484,7 +498,8 @@
                                     '</td><td><button class="btn btn-danger" data="' + data.data.name +
                                     '" onclick="delEks(' + "'" + data.data._id + "'" +
                                     ')">Delete</button></td></tr>');
-                                $("#customer-select, #customer-select2").append("<option value='" + data.data.name + "'>" + data
+                                $("#customer-select, #customer-select2").append("<option value='" + data.data
+                                    .name + "'>" + data
                                     .data
                                     .name + "</option>")
                                 swal({
@@ -547,31 +562,39 @@
                             table.row().id(element._id)
                             table.row.add(
                                 [
-                                    "<span class='tanggal-per'>"+(element.tanggal).split("T")[0]+"<span>",
-                                    "<span class='nopol-per'>"+element.nopol+"<span>",
-                                    "<span class='ekspedisi-per'>"+element.ekspedisi+"<span>",
-                                    "<span class='customer-per'>"+element.customer+"<span>",
-                                    "<span class='muat-per'>"+element.muat+"<span>",
-                                    "<span class='tujuan-per'>"+element.tujuan+"<span>",
-                                    "<span class='tonase-per'>"+element.tonase+"<span>",
-                                    "<span class='fee-per'>"+element.fee+"<span>",
-                                    "<button class='btn btn-info' onclick="+'"'+"updatePer('"+element._id+"')"+'"'+">Update</button> <br> <button class='btn btn-danger mt-2' onclick="+'"'+"delPer('"+element._id+"')"+'"'+">Delete</button>"
+                                    "<span class='tanggal-per'>" + (element.tanggal).split("T")[0] +
+                                    "<span>",
+                                    "<span class='nopol-per'>" + element.nopol + "<span>",
+                                    "<span class='ekspedisi-per'>" + element.ekspedisi + "<span>",
+                                    "<span class='customer-per'>" + element.customer + "<span>",
+                                    "<span class='muat-per'>" + element.muat + "<span>",
+                                    "<span class='tujuan-per'>" + element.tujuan + "<span>",
+                                    "<span class='tonase-per'>" + element.tonase + "<span>",
+                                    "<span class='fee-per'>" + element.fee + "<span>",
+                                    "<button class='btn btn-info' onclick=" + '"' + "updatePer('" + element
+                                    ._id + "')" + '"' +
+                                    ">Update</button> <br> <button class='btn btn-danger mt-2' onclick=" +
+                                    '"' + "delPer('" + element._id + "')" + '"' + ">Delete</button>"
                                 ]
                             ).node().id = element._id;
                             table.draw(false)
                             total += element.fee;
-                            if (resume.hasOwnProperty(element.customer)){
+                            if (resume.hasOwnProperty(element.customer)) {
                                 resume[element.customer].jumlah += 1;
                                 resume[element.customer].penghasilan += element.fee;
-                            }else{
-                                resume[element.customer] = {jumlah:1, penghasilan:element.fee}
+                            } else {
+                                resume[element.customer] = {
+                                    jumlah: 1,
+                                    penghasilan: element.fee
+                                }
                             }
                         }
                     )
                     $("#total, #total2").text(total.toString())
                     Object.keys(resume).forEach(
-                        (element)=>{
-                            $("#tbl-resume").append("<tr> <td>"+element+"</td> <td>"+resume[element].jumlah+"</td> <td>"+resume[element].penghasilan+"</td></tr>")
+                        (element) => {
+                            $("#tbl-resume").append("<tr> <td>" + element + "</td> <td>" + resume[element]
+                                .jumlah + "</td> <td>" + resume[element].penghasilan + "</td></tr>")
                         }
                     )
                 }
@@ -580,25 +603,27 @@
     </script>
 
     <script>
-        function delPer(id){
-            window.location.href = "/perjalanan/del?_id="+id;
+        function delPer(id) {
+            window.location.href = "/perjalanan/del?_id=" + id;
         }
     </script>
 
     <script>
-        function updatePer(id){
-            $("#tanggal").val($("#"+id).find(".tanggal-per").text())
-            $("#nopol").val($("#"+id).find(".nopol-per").text())
-            $("#expedisi-select2").val($("#"+id).find(".ekspedisi-per").text())
-            $("#customer-select2").val($("#"+id).find(".customer-per").text())
-            $("#muat").val($("#"+id).find(".muat-per").text())
-            $("#tujuan").val($("#"+id).find(".tujuan-per").text())
-            $("#tonase").val($("#"+id).find(".tonase-per").text())
-            $("#fee").val($("#"+id).find(".fee-per").text())
+        function updatePer(id) {
+            $("#tanggal").val($("#" + id).find(".tanggal-per").text())
+            $("#nopol").val($("#" + id).find(".nopol-per").text())
+            $("#expedisi-select2").val($("#" + id).find(".ekspedisi-per").text())
+            $("#customer-select2").val($("#" + id).find(".customer-per").text())
+            $("#muat").val($("#" + id).find(".muat-per").text())
+            $("#tujuan").val($("#" + id).find(".tujuan-per").text())
+            $("#tonase").val($("#" + id).find(".tonase-per").text())
+            $("#fee").val($("#" + id).find(".fee-per").text())
             $("#_id").val(id);
             $(".modal-update").modal("show");
         }
     </script>
+
+
 
 </body>
 
