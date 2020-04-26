@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FahmiTrans Login</title>
+    <title>FahmiTrans Home</title>
     <link rel="stylesheet" href="/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
 </head>
@@ -20,37 +20,301 @@
     <div class="row">
         <div class="col-lg-11 mx-auto">
             <div class="card card-body m-3">
-                <h4><b>Record Data Fahmi Trans</b></h4>
+                <b style="font-size: large;">Record Data Fahmi Trans</b>
                 <hr>
                 <div class="row">
                     <div class="col-lg-12">
-                        <button class="btn btn-info ml-3 float-right">Data Customer</button>
-                        <button class="btn btn-info ml-3 float-right">Data Ekspedisi</button>
-                        <button class="btn btn-success ml-3 float-left">Add Data</button>
-                        <button class="btn btn-success ml-3 float-left">Add Data</button>
+                        <button class="btn btn-info ml-3 float-right" data-toggle="modal"
+                            data-target=".modal-customer">Data Customer</button>
+                        <button class="btn btn-info ml-3 float-right" data-toggle="modal"
+                            data-target=".modal-ekspedisi">Data Ekspedisi</button>
+                        <button class="btn btn-success ml-3 float-left" data-toggle="modal" data-target=".modal-add">Add
+                            Data</button>
+                        <button class="btn btn-success ml-3 float-left" data-toggle="modal"
+                            data-target=".modal-resume">Resume</button>
                     </div>
                 </div>
-                <div class="row mt-3 ml-2 mr-2">
-                    <div class="col-lg-12 mx-auto border">
-                        <h4 class="mt-2">Data Perjalanan</h4>
-                        <hr>
-                        <table class="table table-striped" id="table">
-                            <thead>
-                                <th>tanggal</th>
-                                <th>Nomor Polisi</th>
-                                <th>Ekspedisi</th>
-                                <th>Costumer</th>
-                                <th>Muat</th>
-                                <th>Tujuan</th>
-                                <th>Tonase</th>
-                                <th>Fee</th>he
-                                <th>Option</th>
-                            </thead>
-                            <tbody>
+                <div class="row mt-3 ml-2 mr-2 p-2 border">
+                    <div class="col-lg-12 mx-auto">
+                        <b class="m-2" style="font-size: 18px;">Data Perjalanan : </b>
+                        <select name="month" id="month">
+                            <option value="1">Jan</option>
+                            <option value="2">Feb</option>
+                            <option value="3">Mar</option>
+                            <option value="4">Apr</option>
+                            <option value="5">Mei</option>
+                            <option value="6">Jun</option>
+                            <option value="7">Jul</option>
+                            <option value="8">Agu</option>
+                            <option value="9">Sep</option>
+                            <option value="10">Okt</option>
+                            <option value="11">Nov</option>
+                            <option value="12">Des</option>
+                        </select> <b class="ml-2 mr-2"> / </b>
+                        <select name="year" id="year">
 
-                            </tbody>
-                        </table>
+                        </select>
+                        <hr>
+                        <div style="overflow-x: scroll;">
+                            <table class="table table-striped" id="table" style="width: 1200px">
+                                <thead>
+                                    <th>tanggal</th>
+                                    <th>Nomor Polisi</th>
+                                    <th>Ekspedisi</th>
+                                    <th>Costumer</th>
+                                    <th>Muat</th>
+                                    <th>Tujuan</th>
+                                    <th>Tonase</th>
+                                    <th>Fee</th>
+                                    <th>Option</th>
+                                </thead>
+                                <tbody>
+
+                                </tbody>
+                                <tfoot>
+                                    <th colspan="7"><b class="float-right">Total Pemasukan</b></th>
+                                    <td colspan="2" id="total"></td>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade modal-ekspedisi" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Data Ekspedisi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Add Ekspedisi</h4>
+                    <div class="form-group">
+                        <label>Nama Ekspedisi</label>
+                        <input type="text" class="form-control" id="namaEkspedisi" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="add-ekspedisi" class="btn btn-info">Add Ekspedisi</button>
+                    </div>
+                    <hr>
+                    <table class="table table-striped" id="tbl-ekspedisi">
+                        <thead>
+                            <th>Nama Ekspedisi</th>
+                            <th>Option</th>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade modal-customer" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Data Customer</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Add Customer</h4>
+                    <div class="form-group">
+                        <label>Nama Customer</label>
+                        <input type="text" class="form-control" id="namaCustomer" required>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" id="add-customer" class="btn btn-info">Add Customer</button>
+                    </div>
+                    <hr>
+                    <table class="table table-striped" id="tbl-customer">
+                        <thead>
+                            <th>Nama Customer</th>
+                            <th>Option</th>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="modal fade modal-add" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Perjalanan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="/perjalanan/add">
+
+                        <div class="row">
+                            <div class="col-lg-6">
+
+                                <div class="form-group">
+                                    <label>Tanggal</label>
+                                    <input type="date" class="form-control" name="tanggal" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Nomor Polisi</label>
+                                    <input type="text" class="form-control" name="nopol" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Ekspedisi</label>
+                                    <select class="form-control" name="ekspedisi" id="expedisi-select" required>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Customer</label>
+                                    <select class="form-control" name="customer" id="customer-select" required>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Muat</label>
+                                    <input type="text" class="form-control" name="muat" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Tujuan</label>
+                                    <input type="text" class="form-control" name="tujuan" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Tonase</label>
+                                    <input type="number" class="form-control" name="tonase" value="0">
+                                </div>
+                                <div class="form-group">
+                                    <label>fee</label>
+                                    <input type="number" class="form-control" name="fee" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg">
+                                <button type="submit" class="btn btn-info btn-block">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade modal-update" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Perjalanan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="POST" action="/perjalanan/update">
+
+                        <div class="row">
+                            <div class="col-lg-6">
+                                
+                                <input type="text" name="_id" id="_id" hidden>
+                                <div class="form-group">
+                                    <label>Tanggal</label>
+                                    <input type="date" class="form-control" name="tanggal" required id="tanggal">
+                                </div>
+                                <div class="form-group">
+                                    <label>Nomor Polisi</label>
+                                    <input type="text" class="form-control" name="nopol" required id="nopol">
+                                </div>
+                                <div class="form-group">
+                                    <label>Ekspedisi</label>
+                                    <select class="form-control" name="ekspedisi" id="expedisi-select2" id="ekspedisi" required>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Customer</label>
+                                    <select class="form-control" name="customer" id="customer-select2" required id="customer">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label>Muat</label>
+                                    <input type="text" class="form-control" name="muat" required id="muat" id="muat"> 
+                                </div>
+                                <div class="form-group">
+                                    <label>Tujuan</label>
+                                    <input type="text" class="form-control" name="tujuan" required id="tujuan" id="tujuan">
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Tonase</label>
+                                    <input type="number" class="form-control" name="tonase" value="0" id="tonase" id="tonase">
+                                </div>
+                                <div class="form-group">
+                                    <label>fee</label>
+                                    <input type="number" class="form-control" name="fee" required id="fee" id="fee">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg">
+                                <button type="submit" class="btn btn-info btn-block">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade modal-resume" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Data Resume</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <hr>
+                    <table class="table table-striped" id="tbl-resume">
+                        <thead>
+                            <th>Nama Customer</th>
+                            <th>Jumlah Jalan</th>
+                            <th>Penghasilan</th>
+                        </thead>
+                        <tbody>
+                        </tbody>
+                        <tfoot>
+                            <th colspan="2">Total Penghasilan Keseluruhan</th>
+                            <td id="total2"></td>
+                        </tfoot>
+                    </table>
                 </div>
             </div>
         </div>
@@ -67,12 +331,275 @@
     <script>
         $(document).ready(
             function () {
+                let statuserr = "<%= errAdd %>"
+                if (statuserr == "1") {
+                    swal({
+                        title: "Success",
+                        text: "Request Success",
+                        icon: "success",
+                    })
+                } else if (statuserr == "0") {
+                    swal({
+                        title: "Error",
+                        text: "Request Failed",
+                        icon: "error",
+                    })
+                }
 
-                $('#table').DataTable();
+
+
+                var date = new Date();
+                console.log(date.getFullYear());
+                console.log(date.getMonth());
+                for (i = date.getFullYear() + 10; i > date.getFullYear() - 10; i -= 1) {
+                    $("#year").append("<option value='" + i + "'>" + i + "</option>")
+                }
+                $("#year").val(date.getFullYear());
+                $("#month").val(date.getMonth());
+                load_ekspedisi();
+                load_customer();
+
+                var table = $('#table').DataTable({
+                    "ordering": false
+                });
+                load_data(table);
 
             }
         )
     </script>
+
+    <script>
+        function load_ekspedisi() {
+            $.get("/ekspedisi/all").done(
+                function (data) {
+                    console.log(data);
+                    data.data.forEach(element => {
+                        $('#tbl-ekspedisi').append('<tr id="' + element._id + '"><td>' + element.name +
+                            '</td><td><button class="btn btn-danger" data="' + element.name +
+                            '"  onclick="delEks(' + "'" + element._id + "'" +
+                            ')">Delete</button></td></tr>');
+                        $("#expedisi-select, #expedisi-select2").append("<option value='" + element.name + "'>" + element
+                            .name + "</option>")
+                    });
+                }
+            )
+        }
+    </script>
+    <script>
+        $("#add-ekspedisi").click(
+            function () {
+                var nama = $("#namaEkspedisi").val();
+                if (nama != "") {
+                    $.get("/ekspedisi/add", {
+                        "name": nama
+                    }).done(
+                        function (data) {
+                            $("#namaEkspedisi").val("");
+                            console.log(data);
+                            if (data.status == true) {
+                                $('#tbl-ekspedisi').append('<tr id="' + data.data._id + '">><td>' + data.data
+                                    .name +
+                                    '</td><td><button class="btn btn-danger" data="' + data.data.name +
+                                    '" onclick="delEks(' + "'" + data.data._id + "'" +
+                                    ')">Delete</button></td></tr>');
+                                $("#expedisi-select, #expedisi-select2").append("<option value='" + data.data.name + "'>" + data
+                                    .data.name + "</option>")
+                                swal({
+                                    title: "Add Ekspedisi Success",
+                                    text: "Request Success",
+                                    icon: "success",
+                                })
+                            } else {
+                                swal({
+                                    title: "Add Ekspedisi Failed",
+                                    text: "Request Failed",
+                                    icon: "error",
+                                })
+                            }
+                        }
+                    )
+                }
+            }
+        )
+    </script>
+    <script>
+        function delEks(id) {
+            $.get("/ekspedisi/del", {
+                "_id": id
+            }).done(
+                (data) => {
+                    if (data.status == true) {
+                        swal({
+                            title: "Delete Ekspedisi Success",
+                            text: "Request Success",
+                            icon: "success",
+                        })
+                        $("#" + id).remove();
+                    } else {
+                        swal({
+                            title: "Delete Ekspedisi Failed",
+                            text: "Request Filed",
+                            icon: "error",
+                        })
+                    }
+
+                }
+            )
+        }
+    </script>
+
+
+
+    <script>
+        function load_customer() {
+            $.get("/customer/all").done(
+                function (data) {
+                    console.log(data);
+                    data.data.forEach(element => {
+                        $('#tbl-customer').append('<tr id="' + element._id + '"><td>' + element.name +
+                            '</td><td><button class="btn btn-danger" data="' + element.name +
+                            '"  onclick="delCus(' + "'" + element._id + "'" +
+                            ')">Delete</button></td></tr>');
+                        $("#customer-select, #customer-select2").append("<option value='" + element.name + "'>" + element
+                            .name + "</option>")
+                    });
+                }
+            )
+        }
+    </script>
+    <script>
+        $("#add-customer").click(
+            function () {
+                var nama = $("#namaCustomer").val();
+                if (nama != "") {
+                    $.get("/customer/add", {
+                        "name": nama
+                    }).done(
+                        function (data) {
+                            $("#namaCustomer").val("");
+                            console.log(data);
+                            if (data.status == true) {
+                                $('#tbl-customer').append('<tr id="' + data.data._id + '">><td>' + data.data
+                                    .name +
+                                    '</td><td><button class="btn btn-danger" data="' + data.data.name +
+                                    '" onclick="delEks(' + "'" + data.data._id + "'" +
+                                    ')">Delete</button></td></tr>');
+                                $("#customer-select, #customer-select2").append("<option value='" + data.data.name + "'>" + data
+                                    .data
+                                    .name + "</option>")
+                                swal({
+                                    title: "Add Customer Success",
+                                    text: "Request Success",
+                                    icon: "success",
+                                })
+                            } else {
+                                swal({
+                                    title: "Add Customer Failed",
+                                    text: "Request Failed",
+                                    icon: "error",
+                                })
+                            }
+                        }
+                    )
+                }
+            }
+        )
+    </script>
+    <script>
+        function delCus(id) {
+            $.get("/customer/del", {
+                "_id": id
+            }).done(
+                (data) => {
+                    if (data.status == true) {
+                        swal({
+                            title: "Delete Customer Success",
+                            text: "Request Success",
+                            icon: "success",
+                        })
+                        $("#" + id).remove();
+                    } else {
+                        swal({
+                            title: "Delete Customer Failed",
+                            text: "Request Filed",
+                            icon: "error",
+                        })
+                    }
+
+                }
+            )
+        }
+    </script>
+
+    <script>
+        function load_data(table) {
+            $.get("/perjalanan/all", {
+                "year": $("#year").val(),
+                "month": $("#month").val()
+            }).done(
+                (data) => {
+                    console.log(data);
+                    var total = 0;
+                    var resume = {}
+                    data.data.forEach(
+                        function (element) {
+                            console.log(element.tanggal)
+                            table.row().id(element._id)
+                            table.row.add(
+                                [
+                                    "<span class='tanggal-per'>"+(element.tanggal).split("T")[0]+"<span>",
+                                    "<span class='nopol-per'>"+element.nopol+"<span>",
+                                    "<span class='ekspedisi-per'>"+element.ekspedisi+"<span>",
+                                    "<span class='customer-per'>"+element.customer+"<span>",
+                                    "<span class='muat-per'>"+element.muat+"<span>",
+                                    "<span class='tujuan-per'>"+element.tujuan+"<span>",
+                                    "<span class='tonase-per'>"+element.tonase+"<span>",
+                                    "<span class='fee-per'>"+element.fee+"<span>",
+                                    "<button class='btn btn-info' onclick="+'"'+"updatePer('"+element._id+"')"+'"'+">Update</button> <br> <button class='btn btn-danger mt-2' onclick="+'"'+"delPer('"+element._id+"')"+'"'+">Delete</button>"
+                                ]
+                            ).node().id = element._id;
+                            table.draw(false)
+                            total += element.fee;
+                            if (resume.hasOwnProperty(element.customer)){
+                                resume[element.customer].jumlah += 1;
+                                resume[element.customer].penghasilan += element.fee;
+                            }else{
+                                resume[element.customer] = {jumlah:1, penghasilan:element.fee}
+                            }
+                        }
+                    )
+                    $("#total, #total2").text(total.toString())
+                    Object.keys(resume).forEach(
+                        (element)=>{
+                            $("#tbl-resume").append("<tr> <td>"+element+"</td> <td>"+resume[element].jumlah+"</td> <td>"+resume[element].penghasilan+"</td></tr>")
+                        }
+                    )
+                }
+            )
+        }
+    </script>
+
+    <script>
+        function delPer(id){
+            window.location.href = "/perjalanan/del?_id="+id;
+        }
+    </script>
+
+    <script>
+        function updatePer(id){
+            $("#tanggal").val($("#"+id).find(".tanggal-per").text())
+            $("#nopol").val($("#"+id).find(".nopol-per").text())
+            $("#expedisi-select2").val($("#"+id).find(".ekspedisi-per").text())
+            $("#customer-select2").val($("#"+id).find(".customer-per").text())
+            $("#muat").val($("#"+id).find(".muat-per").text())
+            $("#tujuan").val($("#"+id).find(".tujuan-per").text())
+            $("#tonase").val($("#"+id).find(".tonase-per").text())
+            $("#fee").val($("#"+id).find(".fee-per").text())
+            $("#_id").val(id);
+            $(".modal-update").modal("show");
+        }
+    </script>
+
 </body>
 
 </html>
