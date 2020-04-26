@@ -24,14 +24,16 @@
                 <hr>
                 <div class="row">
                     <div class="col-lg-12">
-                        <button class="btn btn-info ml-3 float-right" data-toggle="modal"
+                        <button class="btn btn-info ml-3 mt-1 float-right" data-toggle="modal"
                             data-target=".modal-customer">Data Customer</button>
-                        <button class="btn btn-info ml-3 float-right" data-toggle="modal"
+                        <button class="btn btn-info ml-3 mt-1 float-right" data-toggle="modal"
                             data-target=".modal-ekspedisi">Data Ekspedisi</button>
-                        <button class="btn btn-success ml-3 float-left" data-toggle="modal" data-target=".modal-add">Add
+                        <button class="btn btn-success ml-3 mt-1 float-left" data-toggle="modal" data-target=".modal-add">Add
                             Data</button>
-                        <button class="btn btn-success ml-3 float-left" data-toggle="modal"
+                        <button class="btn btn-success ml-3 mt-1 float-left" data-toggle="modal"
                             data-target=".modal-resume">Resume</button>
+                        <button class="btn btn-success ml-3 mt-1 float-left" data-toggle="modal"
+                            data-target=".modal-export">Export</button>
                     </div>
                 </div>
                 <div class="row mt-3 ml-2 mr-2 p-2 border">
@@ -324,6 +326,62 @@
         </div>
     </div>
 
+    <div class="modal fade modal-export" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Export Data</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <span class="ml-2" style="font-size: 18px;">Data Perjalanan : </span>
+                        <select name="month" id="month2">
+                            <option value="1">Jan</option>
+                            <option value="2">Feb</option>
+                            <option value="3">Mar</option>
+                            <option value="4">Apr</option>
+                            <option value="5">Mei</option>
+                            <option value="6">Jun</option>
+                            <option value="7">Jul</option>
+                            <option value="8">Agu</option>
+                            <option value="9">Sep</option>
+                            <option value="10">Okt</option>
+                            <option value="11">Nov</option>
+                            <option value="12">Des</option>
+                        </select> <b class="ml-2 mr-2"> / </b>
+                        <select name="year" id="year2">
+
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Eksport Berdasarkan</label>
+                        <select class="form-control" id="berdasarkan">
+                            <option value="1">Customer</option>
+                            <option value="2">Ekspedisi</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+
+                        <select class="form-control" name="ekspedisi" id="expedisi-select3" id="ekspedisi" required>
+                        </select>
+                    </div>
+                    <div class="form-group">
+
+                        <select class="form-control" name="customer" id="customer-select3" required id="customer">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <button id="export-btn" class="btn btn-info">Export</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.5.0.min.js"
         integrity="sha256-xNzN2a4ltkB44Mc/Jz3pT4iU1cmeR0FkXs4pru/JxaQ=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -356,10 +414,10 @@
                 console.log(date.getFullYear());
                 console.log(date.getMonth());
                 for (i = date.getFullYear() + 10; i > date.getFullYear() - 10; i -= 1) {
-                    $("#year").append("<option value='" + i + "'>" + i + "</option>")
+                    $("#year, #year2").append("<option value='" + i + "'>" + i + "</option>")
                 }
-                $("#year").val(date.getFullYear());
-                $("#month").val(date.getMonth() + 1);
+                $("#year, #year2").val(date.getFullYear());
+                $("#month, #month2").val(date.getMonth() + 1);
                 load_ekspedisi();
                 load_customer();
 
@@ -389,7 +447,8 @@
                             '</td><td><button class="btn btn-danger" data="' + element.name +
                             '"  onclick="delEks(' + "'" + element._id + "'" +
                             ')">Delete</button></td></tr>');
-                        $("#expedisi-select, #expedisi-select2").append("<option value='" + element.name +
+                        $("#expedisi-select, #expedisi-select2, #expedisi-select3").append(
+                            "<option value='" + element.name +
                             "'>" + element
                             .name + "</option>")
                     });
@@ -414,7 +473,8 @@
                                     '</td><td><button class="btn btn-danger" data="' + data.data.name +
                                     '" onclick="delEks(' + "'" + data.data._id + "'" +
                                     ')">Delete</button></td></tr>');
-                                $("#expedisi-select, #expedisi-select2").append("<option value='" + data.data
+                                $("#expedisi-select, #expedisi-select2, #expedisi-select3").append(
+                                    "<option value='" + data.data
                                     .name + "'>" + data
                                     .data.name + "</option>")
                                 swal({
@@ -473,7 +533,8 @@
                             '</td><td><button class="btn btn-danger" data="' + element.name +
                             '"  onclick="delCus(' + "'" + element._id + "'" +
                             ')">Delete</button></td></tr>');
-                        $("#customer-select, #customer-select2").append("<option value='" + element.name +
+                        $("#customer-select, #customer-select2, #customer-select3").append(
+                            "<option value='" + element.name +
                             "'>" + element
                             .name + "</option>")
                     });
@@ -498,7 +559,8 @@
                                     '</td><td><button class="btn btn-danger" data="' + data.data.name +
                                     '" onclick="delEks(' + "'" + data.data._id + "'" +
                                     ')">Delete</button></td></tr>');
-                                $("#customer-select, #customer-select2").append("<option value='" + data.data
+                                $("#customer-select, #customer-select2, #customer-select3").append(
+                                    "<option value='" + data.data
                                     .name + "'>" + data
                                     .data
                                     .name + "</option>")
@@ -623,7 +685,30 @@
         }
     </script>
 
+    <script>
+        $("#expedisi-select3").hide()
+        $("#berdasarkan").change(
+            function () {
+                if ($(this).val() == "1") {
+                    $("#expedisi-select3").hide()
+                    $("#customer-select3").show()
+                } else {
+                    $("#expedisi-select3").show()
+                    $("#customer-select3").hide()
+                }
+            }
+        )
+    </script>
 
+    <script>
+        $("#export-btn").click(
+            () => {
+                var url = "/perjalanan/exportpage?berdasarkan=" + $("#berdasarkan").val() + "&customer=" + $(
+                    "#customer-select3").val() + "&ekspedisi=" + $("#expedisi-select3").val()+"&year="+$("#year2").val()+"&month="+$("#month2").val();
+                 window.open(url, '_blank');
+            }
+        )
+    </script>
 
 </body>
 

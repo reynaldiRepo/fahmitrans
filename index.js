@@ -218,9 +218,9 @@ App.get("/perjalanan/all", (req, res) => {
     console.log(new Date(req.query.year, req.query.month, out).toISOString());
     perjalanan_model.find({
         "tanggal": {
-            $gte: new Date(req.query.year, req.query.month-1, 0).toISOString(),
+            $gte: new Date(req.query.year, req.query.month - 1, 0).toISOString(),
 
-            $lt: new Date(req.query.year, req.query.month-1, out).toISOString()
+            $lt: new Date(req.query.year, req.query.month - 1, out).toISOString()
         }
     }).sort({
         "tanggal": -1
@@ -277,6 +277,60 @@ App.post("/perjalanan/update", (req, res) => {
 App.get("/logout", (req, res) =>
     res.redirect("/")
 )
+
+
+App.get("/perjalanan/export", (req, res) => {
+    let out = new Date(req.query.year, req.query.month, 0).getDate();
+    console.log(out);
+    console.log(new Date(req.query.year, req.query.month, out).toISOString());
+    var config = {}
+    if (req.query.berdasarkan == 1) {
+        config = {
+            "tanggal": {
+                $gte: new Date(req.query.year, req.query.month - 1, 0).toISOString(),
+                $lt: new Date(req.query.year, req.query.month - 1, out).toISOString()
+            },
+            "customer": req.query.customer,
+        }
+    } else {
+        config = {
+            "tanggal": {
+                $gte: new Date(req.query.year, req.query.month - 1, 0).toISOString(),
+                $lt: new Date(req.query.year, req.query.month - 1, out).toISOString()
+            },
+            "ekspedisi": req.query.ekspedisi,
+        }
+    }
+
+
+    perjalanan_model.find(config).sort({
+        "tanggal": -1
+    }).exec(
+        (err, data) => {
+            if (err) {
+                res.json({
+                    status: false,
+                    msg: err
+                })
+            } else {
+                res.json({
+                    status: true,
+                    data: data
+                })
+            }
+        }
+    )
+})
+
+App.get("/perjalanan/exportpage", (req, res) => {
+    res.render("export", {
+        vendor: req.query.ekspedisi,
+        "customer": req.query.customer,
+        "berdasarkan": req.query.berdasarkan,
+        "m":req.query.month,
+        "y":req.query.year
+    })
+})
 
 
 App.listen(process.env.PORT || "3000", function () {
