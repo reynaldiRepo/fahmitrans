@@ -30,6 +30,12 @@
 
                 </tbody>
             </table>
+            <table class="table table-bordered" style="width: 100%;">
+                <thead>
+                    <th id="ket_total"></th>
+                    <td id="total" class="text-center"></td>
+                </thead>
+            </table>
         </div>
     </div>
 
@@ -57,9 +63,11 @@
                 if (b == "1") {
                     $("#title").text("Rekapitulasi Pemberangkatan Untuk <%= customer %>")
                     $(".periode").text("Periode : " + bulan[m - 1] + "-" + y)
+                    $("#ket_total").text("Total Muatan periode "+ bulan[m - 1] + "-" + y)
                 } else {
                     $("#title").text("Rekapitulasi Pemberangkatan Vendor <%= vendor %>")
                     $(".periode").text("Periode : " + bulan[m - 1] + "-" + y)
+                    $("#ket_total").text("Total Muatan periode "+ bulan[m - 1] + "-" + y)
                 }
                 $.get("/perjalanan/export?berdasarkan=" + b + "&customer=" +
                     customer + "&ekspedisi=" + ekspedisi + "&year=" + y + "&month=" + m).done(
@@ -71,6 +79,7 @@
                             "paging": false,
                             "info": false
                         });
+                        nData = 0;
                         data.data.forEach(
                             function (element) {
                                 table.row.add(
@@ -91,9 +100,11 @@
                                         '"' + "delPer('" + element._id + "')" + '"' + ">Delete</button>"
                                     ]
                                 ).draw()
+                                nData += 1;
                             }
                         )
                         setTimeout(function () {
+                            $("#total").text(nData.toString())
                             window.print();
                         }, 500);
 
